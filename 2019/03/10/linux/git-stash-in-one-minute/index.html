@@ -1,0 +1,366 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#202020"/>
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+  
+  
+    <meta name="keywords" content="git," />
+  
+
+  
+    <meta name="description" content="Stay hungry, Stay foolish" />
+  
+  
+  
+  <link rel="icon" type="image/x-icon" href="/images/logo-shan.jpg">
+  
+  <title>一分钟学git stash [ 羊角岽 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css">
+    
+      <link rel="stylesheet" href="/css/less.css">
+    
+      <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+    
+  
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-vs.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+<body>
+  <div class="nav-container">
+    <nav class="home-menu pure-menu pure-menu-horizontal">
+  <a class="pure-menu-heading" href="/">
+    
+      <img class="avatar" src="http://blog.kingway.fun/images/icon-shan.png">
+    
+    <span class="title" style="text-transform:none">羊角岽</span>
+  </a>
+
+  <ul class="pure-menu-list clearfix">
+      
+          
+            
+              <li class="pure-menu-item"><a href="/" class="pure-menu-link">首页</a></li>
+            
+          
+      
+          
+            
+              <li class="pure-menu-item"><a href="/categories" class="pure-menu-link">分类</a></li>
+            
+          
+      
+          
+            
+              <li class="pure-menu-item"><a href="/archives" class="pure-menu-link">归档</a></li>
+            
+          
+      
+          
+            
+              <li class="pure-menu-item"><a href="/tags" class="pure-menu-link">标签</a></li>
+            
+          
+      
+          
+            
+              <li class="pure-menu-item"><a href="/about" class="pure-menu-link">关于</a></li>
+            
+          
+      
+  </ul>
+   
+</nav>
+
+  </div>
+
+  <div class="container" id="content-outer">
+    <div class="inner" id="content-inner">
+      <div class="post-container">
+  <article class="post" id="post">
+    <header class="post-header text-center">
+      <h1 class="title">
+        一分钟学git stash
+      </h1>
+      <span>
+        
+        <time class="time" datetime="2019-03-10T00:06:52.000Z">
+        2019-03-10
+      </time>
+        
+      </span>
+      <span class="slash">/</span>
+      <span class="post-meta">
+      <span class="post-tags">
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li></ul>
+      </span>
+    </span>
+      <span class="slash">/</span>
+      <span class="read">
+      <span id="busuanzi_value_page_pv"></span> 点击
+    </span>
+      <span class="slash">/</span>
+    </header>
+
+    <div class="post-content">
+      <p>在使用git管理代码时会经常使用到<code>git stash</code>这个命令，一分钟复习一下。<br>一般什么情况下会用stash呢？当前修改还没完成，或者暂时不想<code>commit</code>，然而需要做<code>pull</code>，<code>merge</code>或者<code>checkout</code>到其他分支的操作，一般会用stash将修改暂时储藏。<br>接下来我们复习一些<code>stash</code>的三板斧，增、删、恢复。</p>
+<a id="more"></a>
+
+<ul>
+<li><p>增加储藏<br>任何时候想要<code>stash</code>当前的修改，只需要用<code>git stash</code>命令，git会按栈的方式按先后顺序记录。</p>
+<pre><code>git stash
+# save -a 增加助记message
+git stash save -a &quot;message&quot;</code></pre></li>
+<li><p>查看储藏<br>查看储藏使用<code>git stash list</code>命令，所有储藏按先后顺序出现，<code>stash@{0}</code>表示最近一次储藏。</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">git</span> stash list
+stash@<span class="token punctuation">{</span>0<span class="token punctuation">}</span>: WIP on master: 049d078 added the index <span class="token function">file</span>
+stash@<span class="token punctuation">{</span>1<span class="token punctuation">}</span>: WIP on master: c264051 Revert <span class="token string">"added file_size"</span>
+stash@<span class="token punctuation">{</span>2<span class="token punctuation">}</span>: WIP on master: 21d80a5 added number to log<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>应用储藏<br>将储藏重新应用有两种方式，<code>git stash pop</code>和<code>git stash apply</code>，pop应用后会将储藏删除，而apply不会删除。另外，<strong>stash操作是不随分支的，无论在哪个分支的stash，都可以应用到任何分支</strong>。</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 默认apply最近的一次stash</span>
+<span class="token function">git</span> stash apply 
+<span class="token comment" spellcheck="true"># apply 以前的stash</span>
+<span class="token function">git</span> stash apply stash@<span class="token punctuation">{</span>2<span class="token punctuation">}</span>
+默认pop最近的一次stash
+<span class="token function">git</span> stash pop 
+<span class="token comment" spellcheck="true"># pop以前的stash</span>
+<span class="token function">git</span> stash pop stash@<span class="token punctuation">{</span>2<span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true"># pop 之后会删除</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>撤回储藏<br>有时候应用储藏后，会有撤回的需求，比如你正在修改文件，然后apply了一个储存，之后又不想要储存里apply的修改了，可以运用撤回来清除这个储藏。</p>
+<pre><code>git stash show -p stash@{0} | git apply -R
+# 如果没有指定则会撤回最近的储藏
+git stash show -p | git apply -R</code></pre></li>
+<li><p>删除储藏<br>用apply应用的储藏是不会删除的，需要手工删除，可以通过drop来做，可以指定stash，也可以clear全部删除（慎用）</p>
+<pre><code>git stash drop stash@{0}
+# 全部删除
+git stash drop clear</code></pre></li>
+<li><p>从储藏创建分支<br>有时候一些修改希望单独出一个分支来继续改进，那么可以将这个stash直接checkout成一个单独的分支。</p>
+<pre><code>git stash branch testchanges</code></pre><p>OK，<code>git stash</code>就这三板斧，记起来了吗？</p>
+</li>
+</ul>
+
+    </div>
+
+  </article>
+  <div class="toc-container">
+    
+
+  </div>
+</div>
+<div class="copyright">
+    <span>本作品采用</span>
+    <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">知识共享署名 4.0 国际许可协议</a>
+    <span>进行许可。 转载时请注明原文链接。</span>
+</div>
+
+
+  
+    <div class="post-nav">
+      <div class="post-nav-item post-nav-next">
+        
+      </div>
+  
+      <div class="post-nav-item post-nav-prev">
+          
+          <a href="/2019/03/17/linux/issues-using-git-in-windows/" rel="prev" title="windows上使用git仓库的问题">
+            windows上使用git仓库的问题
+          </a>
+          <span>〉</span>
+        
+      </div>
+    </div>
+  
+
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <div id="gitalk-container"></div>
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script type="text/javascript">
+        var gitalk = new Gitalk({
+            clientID: '008534a3472177954e48',
+            clientSecret: '165d863aaa34f99f350f99a663f410c0b49a4dce',
+            id: window.location.pathname,
+            repo: 'pkufool.github.io',
+            owner: 'pkufool',
+            admin: 'pkufool'
+        })
+        gitalk.render('gitalk-container')
+    </script>
+
+
+
+    </div>
+
+    
+
+  </div>
+  <footer class="footer text-center">
+    <div id="bottom-inner">
+        <a class="bottom-item" href="/">羊角岽 © 2019-2020</a> |
+        <a class="bottom-item" href="http://www.beian.miit.gov.cn" target="_blank">京ICP备19047165号-1</a> |
+        <a class="bottom-item" href="https://hexo.io" target="_blank">Powered by hexo</a> |
+        <a class="bottom-item" href="" target="_blank">Theme less</a>
+    </div>
+</footer>
+
+  
+
+<script>
+  (function(window, document, undefined) {
+
+    var timer = null;
+
+    function returnTop() {
+      cancelAnimationFrame(timer);
+      timer = requestAnimationFrame(function fn() {
+        var oTop = document.body.scrollTop || document.documentElement.scrollTop;
+        if (oTop > 0) {
+          document.body.scrollTop = document.documentElement.scrollTop = oTop - 50;
+          timer = requestAnimationFrame(fn);
+        } else {
+          cancelAnimationFrame(timer);
+        }
+      });
+    }
+
+    var hearts = [];
+    window.requestAnimationFrame = (function() {
+      return window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function(callback) {
+          setTimeout(callback, 1000 / 60);
+        }
+    })();
+    init();
+
+    function init() {
+      css(".heart{z-index:9999;width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: absolute;}.heart:after{top: -5px;}.heart:before{left: -5px;}");
+      attachEvent();
+      gameloop();
+      addMenuEvent();
+    }
+
+    function gameloop() {
+      for (var i = 0; i < hearts.length; i++) {
+        if (hearts[i].alpha <= 0) {
+          document.body.removeChild(hearts[i].el);
+          hearts.splice(i, 1);
+          continue;
+        }
+        hearts[i].y--;
+        hearts[i].scale += 0.004;
+        hearts[i].alpha -= 0.013;
+        hearts[i].el.style.cssText = "left:" + hearts[i].x + "px;top:" + hearts[i].y + "px;opacity:" + hearts[i].alpha + ";transform:scale(" + hearts[i].scale + "," + hearts[i].scale + ") rotate(45deg);background:" + hearts[i].color;
+      }
+      requestAnimationFrame(gameloop);
+    }
+
+    /**
+     * 给logo设置点击事件
+     * 
+     * - 回到顶部
+     * - 出现爱心
+     */
+    function attachEvent() {
+      var old = typeof window.onclick === "function" && window.onclick;
+      var logo = document.getElementById("logo");
+      if (logo) {
+        logo.onclick = function(event) {
+          returnTop();
+          old && old();
+          createHeart(event);
+        }
+      }
+      
+    }
+
+    function createHeart(event) {
+      var d = document.createElement("div");
+      d.className = "heart";
+      hearts.push({
+        el: d,
+        x: event.clientX - 5,
+        y: event.clientY - 5,
+        scale: 1,
+        alpha: 1,
+        color: randomColor()
+      });
+      document.body.appendChild(d);
+    }
+
+    function css(css) {
+      var style = document.createElement("style");
+      style.type = "text/css";
+      try {
+        style.appendChild(document.createTextNode(css));
+      } catch (ex) {
+        style.styleSheet.cssText = css;
+      }
+      document.getElementsByTagName('head')[0].appendChild(style);
+    }
+
+    function randomColor() {
+      // return "rgb(" + (~~(Math.random() * 255)) + "," + (~~(Math.random() * 255)) + "," + (~~(Math.random() * 255)) + ")";
+      return "#F44336";
+    }
+
+    function addMenuEvent() {
+      var menu = document.getElementById('menu-main-post');
+      if (menu) {
+        var toc = document.getElementById('toc');
+        if (toc) {
+          menu.onclick = function() {
+            if (toc) {
+              if (toc.style.display == 'block') {
+                toc.style.display = 'none';
+              } else {
+                toc.style.display = 'block';
+              }
+            }
+          };
+        } else {
+          menu.style.display = 'none';
+        }
+      }
+    }
+
+  })(window, document);
+</script>
+
+  
+
+
+
+  
+<script>
+  (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+          bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      }
+      else {
+          bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+
+</body>
+</html>

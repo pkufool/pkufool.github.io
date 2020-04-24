@@ -1,0 +1,396 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#202020"/>
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+  
+  
+    <meta name="keywords" content="运维,nginx," />
+  
+
+  
+    <meta name="description" content="Stay hungry, Stay foolish" />
+  
+  
+  
+  <link rel="icon" type="image/x-icon" href="/images/logo-shan.jpg">
+  
+  <title>nginx反向代理location路径设置 [ 羊角岽 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css">
+    
+      <link rel="stylesheet" href="/css/less.css">
+    
+      <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+    
+  
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-vs.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+<body>
+  <div class="nav-container">
+    <nav class="home-menu pure-menu pure-menu-horizontal">
+  <a class="pure-menu-heading" href="/">
+    
+      <img class="avatar" src="http://blog.kingway.fun/images/icon-shan.png">
+    
+    <span class="title" style="text-transform:none">羊角岽</span>
+  </a>
+
+  <ul class="pure-menu-list clearfix">
+      
+          
+            
+              <li class="pure-menu-item"><a href="/" class="pure-menu-link">首页</a></li>
+            
+          
+      
+          
+            
+              <li class="pure-menu-item"><a href="/categories" class="pure-menu-link">分类</a></li>
+            
+          
+      
+          
+            
+              <li class="pure-menu-item"><a href="/archives" class="pure-menu-link">归档</a></li>
+            
+          
+      
+          
+            
+              <li class="pure-menu-item"><a href="/tags" class="pure-menu-link">标签</a></li>
+            
+          
+      
+          
+            
+              <li class="pure-menu-item"><a href="/about" class="pure-menu-link">关于</a></li>
+            
+          
+      
+  </ul>
+   
+</nav>
+
+  </div>
+
+  <div class="container" id="content-outer">
+    <div class="inner" id="content-inner">
+      <div class="post-container">
+  <article class="post" id="post">
+    <header class="post-header text-center">
+      <h1 class="title">
+        nginx反向代理location路径设置
+      </h1>
+      <span>
+        
+        <time class="time" datetime="2019-04-18T23:54:28.000Z">
+        2019-04-19
+      </time>
+        
+      </span>
+      <span class="slash">/</span>
+      <span class="post-meta">
+      <span class="post-tags">
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/" rel="tag">nginx</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%BF%90%E7%BB%B4/" rel="tag">运维</a></li></ul>
+      </span>
+    </span>
+      <span class="slash">/</span>
+      <span class="read">
+      <span id="busuanzi_value_page_pv"></span> 点击
+    </span>
+      <span class="slash">/</span>
+    </header>
+
+    <div class="post-content">
+      <p>nginx反向代理路径的配置规则，路径最后有<code>/</code>和没<code>/</code>的区别。</p>
+<a id="more"></a>
+
+<h4 id="一-location匹配路径末尾没有"><a href="#一-location匹配路径末尾没有" class="headerlink" title="一. location匹配路径末尾没有 /"></a>一. location匹配路径末尾没有 /</h4><p>此时proxy_pass后面的路径必须和location设置的路径一致：</p>
+<pre><code>location /index
+{
+   proxy_redirect off;
+   proxy_set_header        Host $host;
+   proxy_set_header        X-Real-IP $remote_addr;
+   proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+   proxy_pass http://localhost:8080/index;
+}</code></pre><p>外面访问：<a href="http://romotehost/index/index.html" target="_blank" rel="noopener">http://romotehost/index/index.html</a><br>相当于访问：<a href="http://localhost:8080/index/index.html" target="_blank" rel="noopener">http://localhost:8080/index/index.html</a></p>
+<h4 id="二-location匹配路径末尾有"><a href="#二-location匹配路径末尾有" class="headerlink" title="二. location匹配路径末尾有 /"></a>二. location匹配路径末尾有 /</h4><p>此时proxy_pass后面的路径需要分为以下四种情况讨论：</p>
+<ul>
+<li>proxy_pass后面的路径只有域名且最后没有 /：<pre><code>location /index/
+{
+ proxy_redirect off;
+ proxy_set_header        Host $host;
+ proxy_set_header        X-Real-IP $remote_addr;
+ proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+ proxy_pass http://localhost:8080;
+}</code></pre></li>
+</ul>
+<p>外面访问：<a href="http://romotehost/index/index.html" target="_blank" rel="noopener">http://romotehost/index/index.html</a><br>相当于访问：<a href="http://localhost:8080/index/index.html" target="_blank" rel="noopener">http://localhost:8080/index/index.html</a></p>
+<ul>
+<li><p>proxy_pass后面的路径只有域名同时最后有 /：</p>
+<pre><code>location /index/
+{
+ proxy_redirect off;
+ proxy_set_header        Host $host;
+ proxy_set_header        X-Real-IP $remote_addr;
+ proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+ proxy_pass http://localhost:8080/;
+}</code></pre><p>外面访问：<a href="http://romotehost/index/index.html" target="_blank" rel="noopener">http://romotehost/index/index.html</a><br>相当于访问：<a href="http://localhost:8080/index.html" target="_blank" rel="noopener">http://localhost:8080/index.html</a></p>
+</li>
+<li><p>proxy_pass后面的路径还有其他路径但是最后没有 /：</p>
+<pre><code>location /index/
+{
+ proxy_redirect off;
+ proxy_set_header        Host $host;
+ proxy_set_header        X-Real-IP $remote_addr;
+ proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+ proxy_pass http://localhost:8080/test;
+}</code></pre></li>
+</ul>
+<p>外面访问：<a href="http://romotehost/index/index.html" target="_blank" rel="noopener">http://romotehost/index/index.html</a><br>相当于访问：<a href="http://localhost:8080/testindex.html" target="_blank" rel="noopener">http://localhost:8080/testindex.html</a></p>
+<ul>
+<li>proxy_pass后面的路径还有其他路径同时最后有 /：<pre><code>location /index/
+{
+ proxy_redirect off;
+ proxy_set_header        Host $host;
+ proxy_set_header        X-Real-IP $remote_addr;
+ proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+ proxy_pass http://localhost:8080/test/;
+}</code></pre></li>
+</ul>
+<p>外面访问：<a href="http://romotehost/index/index.html" target="_blank" rel="noopener">http://romotehost/index/index.html</a><br>相当于访问：<a href="http://localhost:8080/index/index.html" target="_blank" rel="noopener">http://localhost:8080/index/index.html</a></p>
+
+    </div>
+
+  </article>
+  <div class="toc-container">
+    
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#一-location匹配路径末尾没有"><span class="toc-text">一. location匹配路径末尾没有 &#x2F;</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二-location匹配路径末尾有"><span class="toc-text">二. location匹配路径末尾有 &#x2F;</span></a></li></ol>
+  </div>
+
+
+  </div>
+</div>
+<div class="copyright">
+    <span>本作品采用</span>
+    <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">知识共享署名 4.0 国际许可协议</a>
+    <span>进行许可。 转载时请注明原文链接。</span>
+</div>
+
+
+  
+    <div class="post-nav">
+      <div class="post-nav-item post-nav-next">
+        
+          <span>〈 </span>
+          <a href="/2019/04/18/linux/install-ngnix-without-root/" rel="next" title="非root用户安装ngnix">
+          非root用户安装ngnix
+          </a>
+        
+      </div>
+  
+      <div class="post-nav-item post-nav-prev">
+          
+          <a href="/2019/04/20/linux/linux-cpu-cores/" rel="prev" title="Linux上如何查看物理CPU个数,核数,线程数">
+            Linux上如何查看物理CPU个数,核数,线程数
+          </a>
+          <span>〉</span>
+        
+      </div>
+    </div>
+  
+
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <div id="gitalk-container"></div>
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script type="text/javascript">
+        var gitalk = new Gitalk({
+            clientID: '008534a3472177954e48',
+            clientSecret: '165d863aaa34f99f350f99a663f410c0b49a4dce',
+            id: window.location.pathname,
+            repo: 'pkufool.github.io',
+            owner: 'pkufool',
+            admin: 'pkufool'
+        })
+        gitalk.render('gitalk-container')
+    </script>
+
+
+
+    </div>
+
+    
+
+  </div>
+  <footer class="footer text-center">
+    <div id="bottom-inner">
+        <a class="bottom-item" href="/">羊角岽 © 2019-2020</a> |
+        <a class="bottom-item" href="http://www.beian.miit.gov.cn" target="_blank">京ICP备19047165号-1</a> |
+        <a class="bottom-item" href="https://hexo.io" target="_blank">Powered by hexo</a> |
+        <a class="bottom-item" href="" target="_blank">Theme less</a>
+    </div>
+</footer>
+
+  
+
+<script>
+  (function(window, document, undefined) {
+
+    var timer = null;
+
+    function returnTop() {
+      cancelAnimationFrame(timer);
+      timer = requestAnimationFrame(function fn() {
+        var oTop = document.body.scrollTop || document.documentElement.scrollTop;
+        if (oTop > 0) {
+          document.body.scrollTop = document.documentElement.scrollTop = oTop - 50;
+          timer = requestAnimationFrame(fn);
+        } else {
+          cancelAnimationFrame(timer);
+        }
+      });
+    }
+
+    var hearts = [];
+    window.requestAnimationFrame = (function() {
+      return window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function(callback) {
+          setTimeout(callback, 1000 / 60);
+        }
+    })();
+    init();
+
+    function init() {
+      css(".heart{z-index:9999;width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: absolute;}.heart:after{top: -5px;}.heart:before{left: -5px;}");
+      attachEvent();
+      gameloop();
+      addMenuEvent();
+    }
+
+    function gameloop() {
+      for (var i = 0; i < hearts.length; i++) {
+        if (hearts[i].alpha <= 0) {
+          document.body.removeChild(hearts[i].el);
+          hearts.splice(i, 1);
+          continue;
+        }
+        hearts[i].y--;
+        hearts[i].scale += 0.004;
+        hearts[i].alpha -= 0.013;
+        hearts[i].el.style.cssText = "left:" + hearts[i].x + "px;top:" + hearts[i].y + "px;opacity:" + hearts[i].alpha + ";transform:scale(" + hearts[i].scale + "," + hearts[i].scale + ") rotate(45deg);background:" + hearts[i].color;
+      }
+      requestAnimationFrame(gameloop);
+    }
+
+    /**
+     * 给logo设置点击事件
+     * 
+     * - 回到顶部
+     * - 出现爱心
+     */
+    function attachEvent() {
+      var old = typeof window.onclick === "function" && window.onclick;
+      var logo = document.getElementById("logo");
+      if (logo) {
+        logo.onclick = function(event) {
+          returnTop();
+          old && old();
+          createHeart(event);
+        }
+      }
+      
+    }
+
+    function createHeart(event) {
+      var d = document.createElement("div");
+      d.className = "heart";
+      hearts.push({
+        el: d,
+        x: event.clientX - 5,
+        y: event.clientY - 5,
+        scale: 1,
+        alpha: 1,
+        color: randomColor()
+      });
+      document.body.appendChild(d);
+    }
+
+    function css(css) {
+      var style = document.createElement("style");
+      style.type = "text/css";
+      try {
+        style.appendChild(document.createTextNode(css));
+      } catch (ex) {
+        style.styleSheet.cssText = css;
+      }
+      document.getElementsByTagName('head')[0].appendChild(style);
+    }
+
+    function randomColor() {
+      // return "rgb(" + (~~(Math.random() * 255)) + "," + (~~(Math.random() * 255)) + "," + (~~(Math.random() * 255)) + ")";
+      return "#F44336";
+    }
+
+    function addMenuEvent() {
+      var menu = document.getElementById('menu-main-post');
+      if (menu) {
+        var toc = document.getElementById('toc');
+        if (toc) {
+          menu.onclick = function() {
+            if (toc) {
+              if (toc.style.display == 'block') {
+                toc.style.display = 'none';
+              } else {
+                toc.style.display = 'block';
+              }
+            }
+          };
+        } else {
+          menu.style.display = 'none';
+        }
+      }
+    }
+
+  })(window, document);
+</script>
+
+  
+
+
+
+  
+<script>
+  (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+          bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      }
+      else {
+          bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+
+</body>
+</html>
