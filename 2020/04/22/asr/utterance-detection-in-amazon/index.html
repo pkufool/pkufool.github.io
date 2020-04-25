@@ -113,6 +113,8 @@
 
     <div class="post-content">
       <p>最近粗略的接触了些话音检测和噪声过滤的工作，有参考到Amazon的相关论文，在此分享下论文的主要方法和贡献。本次分享的两篇论文方法套路基本一样，只是分别使用于不同的场景，一篇是用在端点检测（END-OF-UTTERANCE DETECTION）上，用来判断用户是否已经结束语音指令。另一篇是应用在Device-directed Utterance Detection上，应该主要是用在echo音箱等vpa上，用来过滤一些误触发，用户正对着设备下发的指令认为是正例，而背景噪音，细碎的嬉笑打闹聊天的声音认为是负例，不应该触发， 所以叫Device-directed Utterance Detection。</p>
+<a id="more"></a>
+
 <h2 id="Device-directed-Utterance-Detection"><a href="#Device-directed-Utterance-Detection" class="headerlink" title="Device-directed Utterance Detection"></a>Device-directed Utterance Detection</h2><h3 id="方法及贡献"><a href="#方法及贡献" class="headerlink" title="方法及贡献"></a>方法及贡献</h3><p>模型可简单概括为三种特征+一个分类器，作者用两个LSTM分别对声学和识别结果分别做embedding，再加上decoder输出的一些特征，最后将三个特征结合起来作为最后分类器的输入。系统结构如下右图所示。这种做法还是比较直观的，三部分特征刚好对应语音识别系统三大部件的输出，对 1-best hypotheses的处理基本可以理解为对语言模型的embedding。最后是一个二分类器，判断本次query是否是Device-directed话音。下左图是正负例的一些样例。</p>
 <table>
 <thead>
