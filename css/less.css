@@ -456,15 +456,16 @@ body {
     display: block;
     position: fixed;
     margin-left: -15px;
-    max-height: calc(100vh - 150px);
+    max-height: calc(100vh - 250px);
     width: 200px;
-    top: 25%;
+    top: 15%;
     font-size: 12px;
     padding: 10px;
     overflow-y: auto;
     overflow-x: auto;
     border-radius: 4px;
     background-color: #F6F6F6;
+    z-index: 999;
   }
 }
 @media screen and (max-width: 1200px) {
