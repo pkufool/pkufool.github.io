@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>Linux Cpu调度策略与实践</title>
+      <link href="/2020/06/25/os/linux_sched/"/>
+      <url>/2020/06/25/os/linux_sched/</url>
+      
+        <content type="html"><![CDATA[<p>先举个栗子</p><a id="more"></a><pre><code>#include &lt;pthread.h&gt;#include &lt;string.h&gt;#include &lt;sys/resource.h&gt;#include&lt;cmath&gt;#include &lt;iostream&gt;#include &lt;string&gt;#include &lt;vector&gt;class Thread { public:  Thread() {}  ~Thread() {}  void Start() {    const int err = pthread_create(&amp;tid_, NULL, Thread::RunThread, this);    if (err != 0) {      std::cout &lt;&lt; &quot;Thread create failed: &quot; &lt;&lt; strerror(err);      return;    }  }  void Run() {    int result = 0;    for (int i = 0; i &lt; 1000; ++i) {      for (int j = i; j &lt; 1000; ++j) {        result += log(i) + log(j);      }    }    std::cout &lt;&lt; &quot;Final result for thread &quot; &lt;&lt; pthread_self()              &lt;&lt; &quot; is &quot; &lt;&lt; result;  }  void SetName(const std::string&amp; name) {    int res = pthread_setname_np(tid_, name.c_str());    if (res != 0) {      std::cout &lt;&lt; &quot;Thread &quot; &lt;&lt; tid_ &lt;&lt; &quot; setname failed: &quot;                &lt;&lt; strerror(res) &lt;&lt; std::endl;    }  }  void SetNiceValue(const int nice) {    nice_ = nice;  }  void BindCpu(const std::vector&lt;int&gt;&amp; cpus) {    if (cpus.empty()) {      return;    }    cpu_set_t cpuset;    CPU_ZERO(&amp;cpuset);    for (const auto&amp; id : cpus) {      CPU_SET(id, &amp;cpuset);    }    std::cout &lt;&lt; &quot;set cpu count: &quot; &lt;&lt; CPU_COUNT(&amp;cpuset)              &lt;&lt; &quot; for thread:&quot; &lt;&lt; tid_;    int ret = pthread_setaffinity_np(tid_, sizeof(cpuset), &amp;cpuset);    if (ret != 0) {      std::cout &lt;&lt; &quot;Failed to call pthread_setaffinity_np.&quot;;    }  }  void SetSchedulerPolicy(const std::string&amp; policy, const int priority) {    struct sched_param param;    int policy_type = SCHED_OTHER;    if (policy == &quot;SCHED_OTHER&quot;) {      policy_type = SCHED_OTHER;    } else if (policy == &quot;SCHED_FIFO&quot;) {      policy_type = SCHED_FIFO;    } else if (policy == &quot;SCHED_RR&quot;) {      policy_type = SCHED_RR;    } else if (policy == &quot;SCHED_BATCH&quot;) {      policy_type = SCHED_BATCH;    } else if (policy == &quot;SCHED_IDLE&quot;) {      policy_type = SCHED_IDLE;    }    int old_policy, old_priority;    pthread_getschedparam(tid_, &amp;old_policy, &amp;param);    old_priority = param.sched_priority;    param.sched_priority = priority;    int s = pthread_setschedparam(tid_, policy_type, &amp;param);    if (s != 0)      std::cout &lt;&lt; &quot;pthread_setschedparam failed, return value : &quot;                &lt;&lt; strerror(s);    std::cout &lt;&lt; &quot;old policy : &quot; &lt;&lt; old_policy              &lt;&lt; &quot;, old priority : &quot; &lt;&lt; old_priority              &lt;&lt; &quot;, new policy : &quot; &lt;&lt; policy_type              &lt;&lt; &quot;, priority : &quot; &lt;&lt; priority;  } private:  static void* RunThread(void *v) {    Thread* t = static_cast&lt;Thread*&gt;(v);    int ret = setpriority(PRIO_PROCESS, 0, t-&gt;nice_);    if (ret != 0) {      std::cout &lt;&lt; &quot;Setpriority for thread &quot; &lt;&lt; t-&gt;tid_                &lt;&lt; &quot; failed: &quot; &lt;&lt; strerror(ret) &lt;&lt; std::endl;    } else {      std::cout &lt;&lt; &quot;Setpriority for thread &quot; &lt;&lt; t-&gt;tid_                &lt;&lt; &quot; to &quot; &lt;&lt; t-&gt;nice_ &lt;&lt; std::endl;    }    t-&gt;Run();    return 0;  }  pthread_t tid_ = 0;  int nice_ = 0;};</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 操作系统 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C++ </tag>
+            
+            <tag> Linux </tag>
+            
+            <tag> 操作系统 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Feature Extraction for ASR: Pitch</title>
       <link href="/2020/04/26/ASR/kaldi-pitch/"/>
       <url>/2020/04/26/ASR/kaldi-pitch/</url>
