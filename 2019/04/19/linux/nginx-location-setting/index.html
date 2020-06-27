@@ -361,47 +361,51 @@ mjx-container + br {
 <p>外面访问：<a href="http://romotehost/index/index.html" target="_blank" rel="noopener">http://romotehost/index/index.html</a><br>相当于访问：<a href="http://localhost:8080/index/index.html" target="_blank" rel="noopener">http://localhost:8080/index/index.html</a></p>
 <h4 id="二-location匹配路径末尾有"><a href="#二-location匹配路径末尾有" class="headerlink" title="二. location匹配路径末尾有 /"></a>二. location匹配路径末尾有 /</h4><p>此时proxy_pass后面的路径需要分为以下四种情况讨论：</p>
 <ul>
-<li>proxy_pass后面的路径只有域名且最后没有 /：<pre><code>location /index/
+<li>proxy_pass后面的路径只有域名且最后没有 /：<pre class="line-numbers language-text"><code class="language-text">location /index/
 {
  proxy_redirect off;
  proxy_set_header        Host $host;
  proxy_set_header        X-Real-IP $remote_addr;
  proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
  proxy_pass http://localhost:8080;
-}</code></pre></li>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
 </ul>
 <p>外面访问：<a href="http://romotehost/index/index.html" target="_blank" rel="noopener">http://romotehost/index/index.html</a><br>相当于访问：<a href="http://localhost:8080/index/index.html" target="_blank" rel="noopener">http://localhost:8080/index/index.html</a></p>
 <ul>
 <li><p>proxy_pass后面的路径只有域名同时最后有 /：</p>
-<pre><code>location /index/
+<pre class="line-numbers language-text"><code class="language-text">location /index/
 {
  proxy_redirect off;
  proxy_set_header        Host $host;
  proxy_set_header        X-Real-IP $remote_addr;
  proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
  proxy_pass http://localhost:8080/;
-}</code></pre><p>外面访问：<a href="http://romotehost/index/index.html" target="_blank" rel="noopener">http://romotehost/index/index.html</a><br>相当于访问：<a href="http://localhost:8080/index.html" target="_blank" rel="noopener">http://localhost:8080/index.html</a></p>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>外面访问：<a href="http://romotehost/index/index.html" target="_blank" rel="noopener">http://romotehost/index/index.html</a><br>相当于访问：<a href="http://localhost:8080/index.html" target="_blank" rel="noopener">http://localhost:8080/index.html</a></p>
 </li>
 <li><p>proxy_pass后面的路径还有其他路径但是最后没有 /：</p>
-<pre><code>location /index/
+<pre class="line-numbers language-text"><code class="language-text">location /index/
 {
  proxy_redirect off;
  proxy_set_header        Host $host;
  proxy_set_header        X-Real-IP $remote_addr;
  proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
  proxy_pass http://localhost:8080/test;
-}</code></pre></li>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
 </ul>
 <p>外面访问：<a href="http://romotehost/index/index.html" target="_blank" rel="noopener">http://romotehost/index/index.html</a><br>相当于访问：<a href="http://localhost:8080/testindex.html" target="_blank" rel="noopener">http://localhost:8080/testindex.html</a></p>
 <ul>
-<li>proxy_pass后面的路径还有其他路径同时最后有 /：<pre><code>location /index/
+<li>proxy_pass后面的路径还有其他路径同时最后有 /：<pre class="line-numbers language-text"><code class="language-text">location /index/
 {
  proxy_redirect off;
  proxy_set_header        Host $host;
  proxy_set_header        X-Real-IP $remote_addr;
  proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
  proxy_pass http://localhost:8080/test/;
-}</code></pre></li>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
 </ul>
 <p>外面访问：<a href="http://romotehost/index/index.html" target="_blank" rel="noopener">http://romotehost/index/index.html</a><br>相当于访问：<a href="http://localhost:8080/index/index.html" target="_blank" rel="noopener">http://localhost:8080/index/index.html</a></p>
 
