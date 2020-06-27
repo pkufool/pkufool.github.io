@@ -926,6 +926,7 @@ body {
 .copyright a:hover {
   color: #2196F3;
 }
+/*
 pre,
 code {
   font-family: "Source Code Pro", "courier new", "Input Mono", "PT Mono", Consolas, Monaco, Menlo, monospace;
@@ -935,8 +936,9 @@ pre {
 }
 pre code {
   padding: 10px;
-}
+}*/
 /* hack for prism-vs */
+/*
 code[class*="language-"] {
   line-height: 1.8em !important;
 }
@@ -946,7 +948,7 @@ pre[class*="language-"] {
 code {
   padding: 2px 4px;
   font-size: 0.8rem;
-}
+}*/
 .highlight {
   display: block;
   overflow-x: auto;
