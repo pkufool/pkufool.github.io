@@ -352,16 +352,14 @@ mjx-container + br {
 <p>对于这种情况，我们一般会挂上<code>gdb</code>,然后在我们感兴趣的地方打上断点，然后查看堆栈里的变量的值。但这个过程时比较繁琐的，尤其是在需要了解程序执行的大量中间过程时是非常让人抓狂的。下面我们将介绍一种使用钩子函数的方法，来修改目标函数的运行时的行为，来达到我们跟踪函数运行的目的。  </p>
 <p>钩子函数可以在运行时劫持预先存在的函数，我们可以在钩子函数里对预先的函数做一些包装，使得函数保持原来的功能的前提下做一些额外的操作。在本文中我们主要的是linux系统的动态加载API，动态加载允许在运行时加载并运行动态链接库里的函数，所以我们可以把钩子函数打包成动态链接库，以实现对现有函数的劫持。实现这个功能需要用到LD_PRELOAD环境变量，使用LD_PRELOAD加载的动态库会最先被加载，这就使得我们有机会可以在钩子函数里运用动态加载技术将原先的函数绑定到钩子函数中，从而达到监控及跟踪的效果。</p>
 <p>下面就以最简单的hello world的例子来讲解这一切是怎么做到的。<br>首先main函数，helloworld.c</p>
-<pre class="line-numbers language-c"><code class="language-c">
-<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+<pre class="line-numbers language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
 <span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;unistd.h></span></span>
 <span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"Hello world!n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>再是钩子函数，example.c</p>
-<pre class="line-numbers language-c"><code class="language-c">
-<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+<pre class="line-numbers language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
 <span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;unistd.h></span></span>
 <span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;dlfcn.h></span></span>
 <span class="token keyword">int</span> <span class="token function">puts</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>message<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -374,18 +372,16 @@ mjx-container + br {
     result <span class="token operator">=</span> <span class="token function">new_puts</span><span class="token punctuation">(</span>message<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
   <span class="token keyword">return</span> result<span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>在这个样例里，我们劫持了标准库里的<code>puts</code>函数。简单看一下代码。<br>第四行我们定义了一个和标准库里有一模一样签名的<code>puts</code>函数，这是能劫持<code>puts</code>函数的关键，钩子函数的签名一定要和原函数一模一样。<br>第五行我们又声明了一个和原函数参数一样的函数指针，这个指针用来后面指向原函数。<br>第九行利用<code>dlsym</code>函数获取原函数的指针并赋给上面声明的指针，<code>RTLD_NEXT</code>这个枚举变量告诉动态加载器加载第二个参数（在本例中为<code>puts</code>）相关联的函数的下一个实例也就是原函数里的<code>puts</code>。<br>后面的<code>if</code>判断里我们比较传进来的参数，然后输出不同的结果，从而在运行时改变程序的行为。</p>
 <p>编译运行看一下</p>
-<pre class="line-numbers language-bash"><code class="language-bash">
-kingway@ubuntu:~/code$ gcc helloworld.c -o helloworld
-kingway@ubuntu:~/code$ gcc example.c -o libexample.so -fPIC -shared -ldl -D_GNU_SOURCE<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-bash"><code class="language-bash">kingway@ubuntu:~/code$ gcc helloworld.c -o helloworld
+kingway@ubuntu:~/code$ gcc example.c -o libexample.so -fPIC -shared -ldl -D_GNU_SOURCE<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>helloworld.c正常编译成可执行文件就行，example.c我们需要编译成位置无关的动态链接库，<code>-ldl -D_GNU_SOURCE</code>是必须的，这样我们才能使用动态加载API，并且访问<code>RTLD_NEXT</code>枚举变量。</p>
 <p>看一下运行的结果</p>
-<pre class="line-numbers language-bash"><code class="language-bash">
-kingway@ubuntu:~/code$ <span class="token function">export</span> LD_PRELOAD<span class="token operator">=</span><span class="token string">"/home/kingway/code/libexample.so"</span>
+<pre class="line-numbers language-bash"><code class="language-bash">kingway@ubuntu:~/code$ <span class="token function">export</span> LD_PRELOAD<span class="token operator">=</span><span class="token string">"/home/kingway/code/libexample.so"</span>
 kingway@ubuntu:~/code$ ./helloworld
-Goodbye, cruel world<span class="token operator">!</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+Goodbye, cruel world<span class="token operator">!</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>可以看到Hello world成功被劫持，并输出了钩子函数里的结果。这只是一个简单的例子，但通过这种方法，我们可以轻松的劫持黑匣子动态链接库的函数，并在必要时进行一些修改，达到调试的目的。</p>
 
     </div>
