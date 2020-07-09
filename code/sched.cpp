@@ -2,7 +2,7 @@
 #include <string.h>
 #include <sys/resource.h>
 
-#include<cmath>
+#include <cmath>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -22,13 +22,20 @@ class Thread {
 
   void Run() {
     int result = 0;
-    for (int i = 0; i < 1000; ++i) {
-      for (int j = i; j < 1000; ++j) {
-        result += log(i) + log(j);
+    for (int i = 0; i < 100000; ++i) {
+      for (int j = i; j < 100000; ++j) {
+        result += log(i * 1.0) + log(j * 1.0);
       }
     }
     std::cout << "Final result for thread " << pthread_self()
               << " is " << result;
+  }
+
+  void Join() {
+    const int err = pthread_join(tid_, NULL);
+    if (err != 0) {
+      std::cout << "Thread join failed: " << strerror(err);
+    }
   }
   
   void SetName(const std::string& name) {
@@ -87,7 +94,7 @@ class Thread {
     std::cout << "old policy : " << old_policy
               << ", old priority : " << old_priority
               << ", new policy : " << policy_type
-              << ", priority : " << priority;
+              << ", priority : " << priority << std::endl;
   }
 
  private:
@@ -109,3 +116,23 @@ class Thread {
   pthread_t tid_ = 0;
   int nice_ = 0;
 };
+
+int main() {
+  std::vector<Thread> threads;
+  for (int i = 1; i < 4; ++i) {
+    Thread t1;
+    t1.SetNiceValue(-1 * i);
+    t1.Start();
+    t1.SetName("thread_" + std::to_string(i));
+    t1.SetSchedulerPolicy("SCHED_RR", i);
+    threads.push_back(t1);
+  }
+  Thread t1;
+  t1.SetNiceValue(-10);
+  t1.Start();
+  t1.SetName("thread_10");
+  t1.Join();
+  for (auto &t : threads) {
+    t.Join();
+  }
+}
