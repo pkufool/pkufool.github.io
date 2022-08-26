@@ -17,45 +17,71 @@ redirect_from:
 
 <span class='anchor' id='about-me'></span>
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. Suspendisse condimentum, libero vel tempus mattis, risus risus vulputate libero, elementum fermentum mi neque vel nisl. Maecenas facilisis maximus dignissim. Curabitur mattis vulputate dui, tincidunt varius libero luctus eu. Mauris mauris nulla, scelerisque eget massa id, tincidunt congue felis. Sed convallis tempor ipsum rhoncus viverra. Pellentesque nulla orci, accumsan volutpat fringilla vitae, maximus sit amet tortor. Aliquam ultricies odio ut volutpat scelerisque. Donec nisl nisl, porttitor vitae pharetra quis, fringilla sed mi. Fusce pretium dolor ut aliquam consequat. Cras volutpat, tellus accumsan mattis molestie, nisl lacus tempus massa, nec malesuada tortor leo vel quam. Aliquam vel ex consectetur, vehicula leo nec, efficitur eros. Donec convallis non urna quis feugiat.
+I work at Xiaomi AI lab as a senior engineer now, developing the Next-gen Kaldi under the leadership of [Daniel Povey](http://danielpovey.com/). Our team focus on the advanced and efficient open source E2E automatic speech recognition. If you are interested in our Next-gen Kaldi project and want to know more about it, feel free to email me at wkang.pku@gmail.com.
 
-My research interest includes neural machine translation and computer vision. I have published more than 100 papers at the top international AI conferences with total <a href='https://scholar.google.com/citations?user=DhtAFkwAAAAJ'>google scholar citations <strong><span id='total_cit'>260000+</span></strong></a> (You can also use google scholar badge <a href='https://scholar.google.com/citations?user=DhtAFkwAAAAJ'><img src="https://img.shields.io/endpoint?url={{ url | url_encode }}&logo=Google%20Scholar&labelColor=f6f6f6&color=9cf&style=flat&label=citations"></a>).
+I graduated from Peking University with a master's degree majoring in Technology of Computer Application. I got my bachelor's degree from School of Electronic Science and Engineering, Nanjing University. 
+
+I used to work for [China Highway Engineering Consultants Corporation (CHECC)](http://www.checc.com.cn/) as an big data engineer. At the spring of 2019, I changed my direction to Automatic Speech Recognition. Thanks to [Mobvoi](https://www.chumenwenwen.com/),  it gave me a chance to start my ASR research as a layman. I worked there for more than 2 years focusing on intelligent cockpit. After that, at the summer of 2021, I joined Daniel's team.
 
 
 # 🔥 News
-- *2022.02*: &nbsp;🎉🎉 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
-- *2022.02*: &nbsp;🎉🎉 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
+- *2022.06*: &nbsp;🎉🎉 Pruned rnnt paper is accepted by InterSpeech 2022 [pdf](https://arxiv.org/pdf/2206.13236.pdf).
+- *2022.03*: &nbsp;🎉🎉 We finish our [pruned rnnt loss](https://github.com/danpovey/fast_rnnt) (also in [k2](https://github.com/k2-fsa/k2)), which is much faster and memory efficient than RNNTLoss in torchaudio.
+- *2021.12*: &nbsp;🎉🎉 We decide to change our direction from CTC/MMI to RNN-T like models, because it is more suitable for efficient streaming ASR.
+- *2021.08*: &nbsp;🎉🎉 We release the first version of [Icefall](https://github.com/k2-fsa/icefall) at the InterSpeech 2021.
 
 # 📝 Publications 
 
-<div class='paper-box'><div class='paper-box-image'><div><div class="badge">CVPR 2016</div><img src='images/500x300.png' alt="sym" width="100%"></div></div>
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">InterSpeech 2022</div><img src='images/pruned-rnnt.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
 
-[Deep Residual Learning for Image Recognition](https://openaccess.thecvf.com/content_cvpr_2016/papers/He_Deep_Residual_Learning_CVPR_2016_paper.pdf)
+[Pruned RNN-T for fast, memory-efficient ASR training](https://arxiv.org/pdf/2206.13236.pdf)
 
-**Kaiming He**, Xiangyu Zhang, Shaoqing Ren, Jian Sun
+Fangjun Kuang, Liyong Guo, **Wei Kang**, Long Lin, Mingshuang Luo, Zengwei Yao, Daniel Povey, Shaoqing Ren, Jian Sun
 
-[**Project**](https://scholar.google.com/citations?view_op=view_citation&hl=zh-CN&user=DhtAFkwAAAAJ&citation_for_view=DhtAFkwAAAAJ:ALROH1vI_8AC) <strong><span class='show_paper_citations' data='DhtAFkwAAAAJ:ALROH1vI_8AC'></span></strong>
-- Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
+[**fast_rnnt**](https://github.com/danpovey/fast_rnnt) [**k2**](https://github.com/k2-fsa/k2/blob/master/k2/python/k2/rnnt_loss.py)
+- We introduce a method for faster and more memoryefficient RNN-T loss computation.
+  - We first obtain pruning bounds for the RNN-T recursion using a simple joiner network that is linear in the encoder and decoder embeddings. 
+  - We then use those pruning bounds to evaluate the full, non-linear joiner network.
 </div>
 </div>
-
-- [Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet](https://github.com), A, B, C, **CVPR 2020**
 
 # 🚀 Projects
-- 
 
-# 🎖 Honors and Awards
-- *2021.10* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
-- *2021.09* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">k2</div><img src='images/pruned-rnnt.png' alt="sym" width="100%"></div></div>
+<div class='paper-box-text' markdown="1">
+
+[Pruned RNN-T for fast, memory-efficient ASR training](https://arxiv.org/pdf/2206.13236.pdf)
+
+Fangjun Kuang, Liyong Guo, **Wei Kang**, Long Lin, Mingshuang Luo, Zengwei Yao, Daniel Povey, Shaoqing Ren, Jian Sun
+
+[**fast_rnnt**](https://github.com/danpovey/fast_rnnt) [**k2**](https://github.com/k2-fsa/k2/blob/master/k2/python/k2/rnnt_loss.py)
+- We introduce a method for faster and more memoryefficient RNN-T loss computation.
+  - We first obtain pruning bounds for the RNN-T recursion using a simple joiner network that is linear in the encoder and decoder embeddings. 
+  - We then use those pruning bounds to evaluate the full, non-linear joiner network.
+</div>
+</div>
+
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">Icefall</div><img src='images/pruned-rnnt.png' alt="sym" width="100%"></div></div>
+<div class='paper-box-text' markdown="1">
+
+[Pruned RNN-T for fast, memory-efficient ASR training](https://arxiv.org/pdf/2206.13236.pdf)
+
+Fangjun Kuang, Liyong Guo, **Wei Kang**, Long Lin, Mingshuang Luo, Zengwei Yao, Daniel Povey, Shaoqing Ren, Jian Sun
+
+[**fast_rnnt**](https://github.com/danpovey/fast_rnnt) [**k2**](https://github.com/k2-fsa/k2/blob/master/k2/python/k2/rnnt_loss.py)
+- We introduce a method for faster and more memoryefficient RNN-T loss computation.
+  - We first obtain pruning bounds for the RNN-T recursion using a simple joiner network that is linear in the encoder and decoder embeddings. 
+  - We then use those pruning bounds to evaluate the full, non-linear joiner network.
+</div>
+</div>
 
 # 📖 Educations
 - *2019.06 - 2022.04 (now)*, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
 - *2015.09 - 2019.06*, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
 
 # 💬 Invited Talks
-- *2021.06*, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
 - *2021.03*, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet.  \| [\[video\]](https://github.com/)
 
-# 💻 Internships
+# 💻 Work Experiences
 - *2019.05 - 2020.02*, [Lorem](https://github.com/), China.
