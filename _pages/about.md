@@ -48,40 +48,46 @@ Fangjun Kuang, Liyong Guo, **Wei Kang**, Long Lin, Mingshuang Luo, Zengwei Yao, 
 
 # 🚀 Projects
 
-<div class='paper-box'><div class='paper-box-image'><div><div class="badge">k2</div><img src='images/pruned-rnnt.png' alt="sym" width="100%"></div></div>
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">k2</div><img src='images/k2-500x300.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
 
-[Pruned RNN-T for fast, memory-efficient ASR training](https://arxiv.org/pdf/2206.13236.pdf)
+[k2: The core algorithm of the Next-gen Kaldi](https://github.com/k2-fsa/k2)
 
-Fangjun Kuang, Liyong Guo, **Wei Kang**, Long Lin, Mingshuang Luo, Zengwei Yao, Daniel Povey, Shaoqing Ren, Jian Sun
+![](https://img.shields.io/github/stars/k2-fsa/k2?style=social)
 
-[**fast_rnnt**](https://github.com/danpovey/fast_rnnt) [**k2**](https://github.com/k2-fsa/k2/blob/master/k2/python/k2/rnnt_loss.py)
-- We introduce a method for faster and more memoryefficient RNN-T loss computation.
-  - We first obtain pruning bounds for the RNN-T recursion using a simple joiner network that is linear in the encoder and decoder embeddings. 
-  - We then use those pruning bounds to evaluate the full, non-linear joiner network.
+- Ragged Tensor running on both CPU and GPU.
+- Differentiable Finite State Acceptor.
+- Pruned RNN-T Loss.
+
 </div>
 </div>
 
-<div class='paper-box'><div class='paper-box-image'><div><div class="badge">Icefall</div><img src='images/pruned-rnnt.png' alt="sym" width="100%"></div></div>
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">Icefall</div><img src='images/icefall-500x300.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
 
-[Pruned RNN-T for fast, memory-efficient ASR training](https://arxiv.org/pdf/2206.13236.pdf)
+[Icefall: The recipes of the Next-gen Kaldi](https://github.com/k2-fsa/icefall)
 
-Fangjun Kuang, Liyong Guo, **Wei Kang**, Long Lin, Mingshuang Luo, Zengwei Yao, Daniel Povey, Shaoqing Ren, Jian Sun
+![](https://img.shields.io/github/stars/k2-fsa/icefall?style=social)
 
-[**fast_rnnt**](https://github.com/danpovey/fast_rnnt) [**k2**](https://github.com/k2-fsa/k2/blob/master/k2/python/k2/rnnt_loss.py)
-- We introduce a method for faster and more memoryefficient RNN-T loss computation.
-  - We first obtain pruning bounds for the RNN-T recursion using a simple joiner network that is linear in the encoder and decoder embeddings. 
-  - We then use those pruning bounds to evaluate the full, non-linear joiner network.
+- Conformer CTC / MMI.
+- Xformer transducer.
+- MVQ training.
+- Pipeline to build an ASR.
+
 </div>
 </div>
 
 # 📖 Educations
-- *2019.06 - 2022.04 (now)*, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
-- *2015.09 - 2019.06*, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
+- *2014.09 - 2017.06 (Master)*, Computer Science (CS), Peking University (PKU).
+  - Technology of Computer Application, Institute of Network Computing and Information Systems (NC&IS)
+- *2010.09 - 2014.06 (Bachelor)*: Electronics Engineering (EE), Nanjing University (NJU).
+  - Information Electronic, School of Electronic Science and Engineering
 
 # 💬 Invited Talks
-- *2021.03*, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet.  \| [\[video\]](https://github.com/)
+- *2022.07*, I give a presentation about the Next-gen Kaldi.  \| [\[video\]](https://bilibili.com/)
 
 # 💻 Work Experiences
-- *2019.05 - 2020.02*, [Lorem](https://github.com/), China.
+- *2021.06 - Now*, Xiaomi Corporation, Senior Engineer.
+- *2019.01 - 2021.05*, Mobvoi Beijing, Speech Engineer.
+- *2017.02 - 2018.12*, China Highway Engineering Consultants Corporation (CHECC), Data R & D Engineer.
+- *2016.03 - 2016.12 (Internship)*, Mobvoi Beijing, Search Engineer.
