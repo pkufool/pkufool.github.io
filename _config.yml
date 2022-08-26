@@ -7,7 +7,7 @@
 
 # Site Settings
 title                    : "Wei Kang (康魏)"
-description              : "Senior engineer in Xiaomi Ai Lab, Graduating from Peking University. Focusing on speech, AI and Machine learning."
+description              : "Senior engineer in Xiaomi AI Lab, Graduating from Peking University. Focusing on Speech, AI and Machine learning."
 repository               : # "pkufool/pkufool.github.io"
 google_scholar_stats_use_cdn : false
 
@@ -37,7 +37,7 @@ author:
   flickr           :
   facebook         :
   foursquare       :
-  github           : "https://github.com/pkufool"
+  github           : "pkufool"
   google_plus      :
   keybase          :
   instagram        :
