@@ -69,7 +69,7 @@ I used to work for [China Highway Engineering Consultants Corporation (CHECC)](h
 
 [Pruned RNN-T for fast, memory-efficient ASR training](https://arxiv.org/pdf/2206.13236.pdf)
 
-Fangjun Kuang, Liyong Guo, **Wei Kang**, Long Lin, Mingshuang Luo, Zengwei Yao, Daniel Povey, Shaoqing Ren, Jian Sun
+Fangjun Kuang, Liyong Guo, **Wei Kang**, Long Lin, Mingshuang Luo, Zengwei Yao, Daniel Povey
 
 [**fast_rnnt**](https://github.com/danpovey/fast_rnnt) [**k2**](https://github.com/k2-fsa/k2/blob/master/k2/python/k2/rnnt_loss.py)
 - We introduce a method for faster and more memoryefficient RNN-T loss computation.
