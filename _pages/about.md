@@ -19,7 +19,7 @@ redirect_from:
 
 I work at Xiaomi AI lab as a senior engineer now, developing the Next-gen Kaldi under the leadership of [Daniel Povey](http://danielpovey.com/). Our team focus on the advanced and efficient open source E2E Automatic Speech Recognition. If you are interested in our Next-gen Kaldi project and want to know more about it, feel free to email me at [wkang.pku@gmail.com]().
 
-I graduated from Peking University with a master's degree majoring in Technology of Computer Application, advised by [Tengjiao Wang(王腾蛟)](https://cs.pku.edu.cn/info/1082/1286.htm). I got my bachelor's degree from School of Electronic Science and Engineering, Nanjing University.
+I graduated from Peking University with a master's degree majoring in Technology of Computer Application, advised by [Tengjiao Wang(王腾蛟)](https://cs.pku.edu.cn/info/1082/1286.htm). I got my bachelor's degree from [School of Electronic Science and Engineering](https://ese.nju.edu.cn/main.htm), Nanjing University.
 
 I used to work for [China Highway Engineering Consultants Corporation (CHECC)](http://www.checc.com.cn/) as a Big Data Engineer. At the spring of 2019, I changed my direction to Automatic Speech Recognition. Thanks to [Mobvoi](https://www.chumenwenwen.com/),  it gave me a chance to start my ASR research as a layman. I worked there for more than 2 years focusing on intelligent cockpit. After that, at the summer of 2021, I joined Daniel's team.
 
