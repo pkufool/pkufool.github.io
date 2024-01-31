@@ -17,19 +17,27 @@ redirect_from:
 
 <span class='anchor' id='about-me'></span>
 
-I work at Xiaomi AI lab as a senior engineer now, developing the Next-gen Kaldi under the leadership of [Daniel Povey](http://danielpovey.com/). Our team focus on the advanced and efficient open source E2E Automatic Speech Recognition. If you are interested in our Next-gen Kaldi project and want to know more about it, feel free to email me at [wkang.pku@gmail.com]().
+I work at Xiaomi AI lab as a senior engineer now, developing the Next-gen Kaldi under the leadership of [Daniel Povey](http://danielpovey.com/). Our team focus on the advanced and efficient open source E2E Automatic Speech Recognition. If you are interested in our Next-gen Kaldi project and want to know more about it, feel free to email me at [wkang@pku.edu.cn]().
 
-I graduated from Peking University with a master's degree majoring in Technology of Computer Application, advised by [Tengjiao Wang(王腾蛟)](https://cs.pku.edu.cn/info/1082/1286.htm). I got my bachelor's degree from [School of Electronic Science and Engineering](https://ese.nju.edu.cn/main.htm), Nanjing University.
+I graduated from Peking University with a master's degree majoring in Technology of Computer Application, advised by [Tengjiao Wang(王腾蛟)](https://cs.pku.edu.cn/info/1083/1702.htm). I got my bachelor's degree from [School of Electronic Science and Engineering](https://ese.nju.edu.cn/main.htm), Nanjing University.
 
 I used to work for [China Highway Engineering Consultants Corporation (CHECC)](http://www.checc.com.cn/) as a Big Data Engineer. At the spring of 2019, I changed my direction to Automatic Speech Recognition. Thanks to [Mobvoi](https://www.chumenwenwen.com/),  it gave me a chance to start my ASR research as a layman. I worked there for more than 2 years focusing on intelligent cockpit. After that, at the summer of 2021, I joined Daniel's team.
 
 
 # 🔥 News
+- *2023.12*: &nbsp;🎉🎉 Two papers: Libriheavy [pdf]() and PromptAsr [pdf]() are accepted by ICASSP 2024.
+- *2023.06*: &nbsp;🎉🎉 I take part in the ICASSP 2023 conference at Greece.
+- *2023.05*: &nbsp;🎉🎉 We release a new version (stable version) of Zipformer [code](https://github.com/k2-fsa/icefall/blob/master/egs/librispeech/ASR/zipformer/zipformer.py)
+- *2023.05*: &nbsp;🎉🎉 Two papers: Blank skipping for transducer [pdf]() and delay-penalized CTC [pdf]() are accepted by Interspeech 2023.
+- *2023.02*: &nbsp;🎉🎉 Three papers: Fast decoding for transducer [pdf](https://arxiv.org/pdf/2211.00484.pdf), MVQ training [pdf](https://arxiv.org/pdf/2211.00508.pdf), Delay-penalized transducer [pdf](https://arxiv.org/pdf/2211.00490.pdf) are accepted by ICASSP 2023.
+- *2022.11*: &nbsp;🎉🎉 We release the first version of Zipformer [code](https://github.com/k2-fsa/icefall/blob/master/egs/librispeech/ASR/pruned_transducer_stateless7/zipformer.py).
+- *2022.06*: &nbsp;🎉🎉 We start the [sherpa](https://github.com/k2-fsa/sherpa) project, it is a ASR runtime based on libtorch.
 - *2022.06*: &nbsp;🎉🎉 Pruned rnnt paper is accepted by InterSpeech 2022 [pdf](https://arxiv.org/pdf/2206.13236.pdf).
+- *2022.05*: &nbsp;🎉🎉 We finish a reworked version of conformer, which converages faster and can train with fp16 stably, the performance is also slightly better [code](https://github.com/k2-fsa/icefall/blob/master/egs/librispeech/ASR/pruned_transducer_stateless2/conformer.py).
 - *2022.03*: &nbsp;🎉🎉 We finish our [pruned rnnt loss](https://github.com/danpovey/fast_rnnt) (also in [k2](https://github.com/k2-fsa/k2)), which is much faster and memory efficient than RNNTLoss in torchaudio.
 - *2021.12*: &nbsp;🎉🎉 We decide to change our direction from CTC/MMI to RNN-T like models, because it is more suitable for efficient streaming ASR.
 - *2021.09*: &nbsp;🎉🎉 We release the first version of [Icefall](https://github.com/k2-fsa/icefall) at the InterSpeech 2021.
-- *2021.06*: &nbsp;🎉🎉 I join Xiaomi.
+- *2021.06*: &nbsp;🎉🎉 I join Daniel's team at Xiaomi.
 
 # 🚀 Projects
 
