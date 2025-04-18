@@ -25,13 +25,14 @@ I used to work for [China Highway Engineering Consultants Corporation (CHECC)](h
 
 
 # 🔥 News
-- *2023.12*: &nbsp;🎉🎉 Two papers: Libriheavy [pdf]() and PromptAsr [pdf]() are accepted by ICASSP 2024.
-- *2023.06*: &nbsp;🎉🎉 I take part in the ICASSP 2023 conference at Greece.
+- *2025.02*: &nbsp;🎉🎉 CR-CTC [pdf](https://arxiv.org/pdf/2410.05101) is accepted by ICLR 2025.
+- *2024.01*: &nbsp;🎉🎉 Zipformer [pdf](https://arxiv.org/pdf/2310.11230) is accepted by ICLR 2024.
+- *2023.12*: &nbsp;🎉🎉 Two papers: Libriheavy [pdf](https://arxiv.org/pdf/2309.08105) and PromptAsr [pdf](https://arxiv.org/pdf/2309.07414) are accepted by ICASSP 2024.
 - *2023.05*: &nbsp;🎉🎉 We release a new version (stable version) of Zipformer [code](https://github.com/k2-fsa/icefall/blob/master/egs/librispeech/ASR/zipformer/zipformer.py)
-- *2023.05*: &nbsp;🎉🎉 Two papers: Blank skipping for transducer [pdf]() and delay-penalized CTC [pdf]() are accepted by Interspeech 2023.
+- *2023.05*: &nbsp;🎉🎉 Two papers: Blank skipping for transducer [pdf](https://arxiv.org/pdf/2305.11558) and delay-penalized CTC [pdf](https://arxiv.org/pdf/2305.11539) are accepted by Interspeech 2023.
 - *2023.02*: &nbsp;🎉🎉 Three papers: Fast decoding for transducer [pdf](https://arxiv.org/pdf/2211.00484.pdf), MVQ training [pdf](https://arxiv.org/pdf/2211.00508.pdf), Delay-penalized transducer [pdf](https://arxiv.org/pdf/2211.00490.pdf) are accepted by ICASSP 2023.
 - *2022.11*: &nbsp;🎉🎉 We release the first version of Zipformer [code](https://github.com/k2-fsa/icefall/blob/master/egs/librispeech/ASR/pruned_transducer_stateless7/zipformer.py).
-- *2022.06*: &nbsp;🎉🎉 We start the [sherpa](https://github.com/k2-fsa/sherpa) project, it is a ASR runtime based on libtorch.
+- *2022.06*: &nbsp;🎉🎉 We start the [sherpa](https://github.com/k2-fsa/sherpa), [sherpa-onnx](https://github.com/k2-fsa/sherpa-onnx), [sherpa-ncnn](https://github.com/k2-fsa/sherpa-ncnn) projects, it is a ASR runtime based on libtorch.
 - *2022.06*: &nbsp;🎉🎉 Pruned rnnt paper is accepted by InterSpeech 2022 [pdf](https://arxiv.org/pdf/2206.13236.pdf).
 - *2022.05*: &nbsp;🎉🎉 We finish a reworked version of conformer, which converages faster and can train with fp16 stably, the performance is also slightly better [code](https://github.com/k2-fsa/icefall/blob/master/egs/librispeech/ASR/pruned_transducer_stateless2/conformer.py).
 - *2022.03*: &nbsp;🎉🎉 We finish our [pruned rnnt loss](https://github.com/danpovey/fast_rnnt) (also in [k2](https://github.com/k2-fsa/k2)), which is much faster and memory efficient than RNNTLoss in torchaudio.
